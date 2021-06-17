@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <div th:switch="${users}">
+        <h2 th:case="null">No users found!</h2>
+            <div th:case="*">
+                <h2>Users</h2>
+                <table border="1">
+                    <thred>
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Login</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th colspan="2">Functions</th>
+                        </tr>
+                    </thred>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.login}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td th:text="${user.status}"></td>
+                        <td><a th:href="@{/api/userUpdate/{id}(id=${user.id})}">Edit</a></td>
+                        <td><a th:href="@{/api/userDelete/{id}(id=${user.id})}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        <p><a href="/api/userCreate">Create user</a></p>
+        <form action="/auth/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
